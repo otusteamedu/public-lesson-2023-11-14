@@ -26,6 +26,9 @@
             "migrations/.gitignore"
         ]
     },
+    "simpod/kafka-bundle": {
+        "version": "0.6.1"
+    },
     "symfony/console": {
         "version": "6.3",
         "recipe": {

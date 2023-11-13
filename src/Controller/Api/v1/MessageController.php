@@ -2,7 +2,7 @@
 
 namespace App\Controller\Api\v1;
 
-use App\Manager\MessageManager;
+use App\Service\KafkaService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[AsController]
 class MessageController
 {
-    public function __construct(private readonly MessageManager $messageManager)
+    public function __construct(private readonly KafkaService $kafkaService)
     {
     }
 
@@ -21,8 +21,8 @@ class MessageController
     public function saveMessageAction(Request $request): Response
     {
         $text = $request->request->get('text');
-        $message = $this->messageManager->createMessage($text);
+        $this->kafkaService->send(KafkaService::SEND_MESSAGE_TOPIC, ['text' => $text]);
 
-        return new JsonResponse(['success' => true, 'messageId' => $message->getId()], Response::HTTP_OK);
+        return new JsonResponse(['success' => true], Response::HTTP_OK);
     }
 }

@@ -1,0 +1,4 @@
+kafka:
+  bootstrap_servers: '%env(KAFKA_BROKERS)%'
+  client:
+    id: 'app'
