@@ -1,0 +1,27 @@
+framework:
+    messenger:
+        transports:
+            kafka_producer:
+                dsn: '%env(MESSENGER_KAFKA_DSN)%'
+                options:
+                    flushTimeout: 10000
+                    flushRetries: 5
+                    topic:
+                        name: 'send_message'
+            kafka_consumer:
+                dsn: '%env(MESSENGER_KAFKA_DSN)%'
+                options:
+                    commitAsync: true
+                    receiveTimeout: 10000
+                    topic:
+                        name: 'send_message'
+                    kafka_conf:
+                        enable.auto.offset.store: 'false'
+                        group.id: 'group1'
+                        max.poll.interval.ms: '45000'
+                    topic_conf:
+                        auto.offset.reset: 'earliest'
+
+        routing:
+            App\DTO\Message: kafka_producer
+

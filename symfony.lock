@@ -26,6 +26,9 @@
             "migrations/.gitignore"
         ]
     },
+    "koco/messenger-kafka": {
+        "version": "v0.17"
+    },
     "simpod/kafka-bundle": {
         "version": "0.6.1"
     },
@@ -70,6 +73,18 @@
             "public/index.php",
             "src/Controller/.gitignore",
             "src/Kernel.php"
+        ]
+    },
+    "symfony/messenger": {
+        "version": "6.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "6.0",
+            "ref": "ba1ac4e919baba5644d31b57a3284d6ba12d52ee"
+        },
+        "files": [
+            "config/packages/messenger.yaml"
         ]
     },
     "symfony/routing": {
