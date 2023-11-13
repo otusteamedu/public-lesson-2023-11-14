@@ -26,11 +26,11 @@ class KafkaService
         $this->producer->addBrokers($this->configuration->getBootstrapServers());
     }
 
-    public function send(string $name, array $data, int $timeout = self::DEFAULT_TIMEOUT): void
+    public function send(string $name, array $data, int $partition = RD_KAFKA_PARTITION_UA, int $timeout = self::DEFAULT_TIMEOUT): void
     {
         $payload = json_encode($data, JSON_THROW_ON_ERROR);
 
-        $this->getTopic($name)->produce(RD_KAFKA_PARTITION_UA, 0, $payload);
+        $this->getTopic($name)->produce($partition, 0, $payload);
 
         for ($i = 0; $i < self::FLUSH_RETRY_COUNT; ++$i) {
             if ($this->producer->flush($timeout) === RD_KAFKA_RESP_ERR_NO_ERROR) {

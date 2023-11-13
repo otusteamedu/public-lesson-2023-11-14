@@ -23,7 +23,7 @@ class MessageController
         $text = $request->request->get('text');
         $count = $request->request->get('count');
         for ($i = 0; $i < $count; $i++) {
-            $this->kafkaService->send(KafkaService::SEND_MESSAGE_TOPIC, ['text' => $text.' #'.$i]);
+            $this->kafkaService->send(KafkaService::SEND_MESSAGE_TOPIC, ['text' => $text.' #'.$i], $i % 2);
         }
 
         return new JsonResponse(['success' => true], Response::HTTP_OK);
