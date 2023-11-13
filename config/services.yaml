@@ -18,6 +18,7 @@ services:
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
+            - '../src/Consumer'
             - '../src/Kernel.php'
 
     # add more service definitions when explicit configuration is needed
@@ -27,8 +28,16 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
-    App\Consumer\MessageConsumer:
+    App\Consumer\MessageConsumer0:
+        class: App\Consumer\MessageConsumer
         arguments:
             $topic: !php/const App\Service\KafkaService::SEND_MESSAGE_TOPIC
             $groupId: group1
-            $name: send_message
+            $name: send_message0
+
+    App\Consumer\MessageConsumer1:
+        class: App\Consumer\MessageConsumer
+        arguments:
+            $topic: !php/const App\Service\KafkaService::SEND_MESSAGE_TOPIC
+            $groupId: group1
+            $name: send_message1

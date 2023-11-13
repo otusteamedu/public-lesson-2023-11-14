@@ -21,7 +21,10 @@ class MessageController
     public function saveMessageAction(Request $request): Response
     {
         $text = $request->request->get('text');
-        $this->kafkaService->send(KafkaService::SEND_MESSAGE_TOPIC, ['text' => $text]);
+        $count = $request->request->get('count');
+        for ($i = 0; $i < $count; $i++) {
+            $this->kafkaService->send(KafkaService::SEND_MESSAGE_TOPIC, ['text' => $text.' #'.$i]);
+        }
 
         return new JsonResponse(['success' => true], Response::HTTP_OK);
     }
