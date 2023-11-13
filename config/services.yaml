@@ -32,7 +32,7 @@ services:
         class: App\Consumer\MessageConsumer
         arguments:
             $topic: !php/const App\Service\KafkaService::SEND_MESSAGE_TOPIC
-            $groupId: group1
+            $groupId: group0
             $name: send_message0
 
     App\Consumer\MessageConsumer1:
